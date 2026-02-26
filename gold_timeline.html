@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Golden Timeline UI</title>
+    <style>
+        :root {
+            --gold-primary: #FFD700;
+            --gold-secondary: #FFC300;
+            --gold-dark: #FFB000;
+            --bg-dark: #0a0a0a;
+            --bg-gradient: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+            --glow: 0 0 15px rgba(255, 215, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.2);
+            --glow-hover: 0 0 25px rgba(255, 215, 0, 0.6), 0 0 50px rgba(255, 215, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-color: black;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 600px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 0;
+        }
+
+        /* The Vertical Line */
+        .timeline-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            background: linear-gradient(to bottom,
+                    transparent,
+                    var(--gold-primary) 15%,
+                    var(--gold-primary) 85%,
+                    transparent);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+            z-index: 1;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 100%;
+            margin-bottom: 80px;
+            display: flex;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        /* The Circles */
+        .timeline-marker {
+            width: 60px;
+            height: 60px;
+            background: #111;
+            border: 2px solid var(--gold-primary);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: var(--glow);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .timeline-marker::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            pointer-events: none;
+        }
+
+        .timeline-marker:hover {
+            transform: scale(1.15);
+            background: #1a1a1a;
+            box-shadow: var(--glow-hover);
+            border-color: #fff;
+        }
+
+        /* Labels for Context */
+        .timeline-content {
+            position: absolute;
+            width: calc(50% - 60px);
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            left: 0;
+            padding-right: 20px;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            right: 0;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content h3 {
+            background: linear-gradient(to right, white, var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content h3 {
+            background: linear-gradient(to left, white, var(--gold-primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            margin-bottom: 4px;
+            font-weight: 700;
+        }
+
+        p {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        /* Extra flare - center marker background glow */
+        .timeline-item:first-child .timeline-marker {
+            background: linear-gradient(135deg, #222 0%, var(--gold-dark) 200%);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .timeline-line {
+                left: 30px;
+            }
+
+            .timeline-item {
+                justify-content: flex-start;
+                padding-left: 0;
+            }
+
+            .timeline-marker {
+                margin-left: 0;
+            }
+
+            .timeline-content {
+                position: relative;
+                width: auto;
+                transform: none;
+                top: auto;
+                left: auto !important;
+                right: auto !important;
+                padding: 10px 0 0 20px !important;
+                text-align: left !important;
+                flex: 1;
+            }
+
+            .timeline-item {
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker">🎓</div>
+            <div class="timeline-content">
+                <h3>Milestone One</h3>
+                <p>The beginning of the journey</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker">🚀</div>
+            <div class="timeline-content">
+                <h3>Milestone Two</h3>
+                <p>Scaling to new heights</p>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-marker">🏆</div>
+            <div class="timeline-content">
+                <h3>Milestone Three</h3>
+                <p>Achieving excellence</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
